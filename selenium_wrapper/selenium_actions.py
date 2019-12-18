@@ -1,5 +1,8 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import os
+from distutils.dir_util import mkpath
+import time
 
 class SeleniumActions(object):
     def __init__(self, driver):
@@ -33,6 +36,13 @@ class SeleniumActions(object):
         self.driver.execute_script(jsScript, centerPanel)
 
     def take_page_snapshot(self, path):
+        if not os.path.exists(path):
+            #mkpath(path)
+            os.makedirs(path)
+
+        print "taking snapshot at path {}".format(path)
+        path = path + "test.png"
         self.driver.save_screenshot(path)
+        time.sleep(2)
 
 

@@ -1,6 +1,8 @@
 from selenium_wrapper import SeleniumActions
 from bs4 import BeautifulSoup
 from selenium_wrapper import Xpath_Util
+from helper import file_cleanup
+from query_model import classify_webpage
 
 xpath_map = {
     "username" : '//input[@id="username"]',
@@ -23,10 +25,14 @@ class Login(SeleniumActions):
         self.wait_for_page_to_load()
 
     def is_login_page(self):
-        path = "/tmp/login"
+        path = "model/login/"
+        file_cleanup("model/")
         self.take_page_snapshot(path)
-        ## add code here to query the model and verify if the page is login page
-        pass
+        get_web_page_from_classifier = classify_webpage()
+        if get_web_page_from_classifier == "Login":
+            print "Page is successfully classified as login page"
+        else:
+            print "Page is classified as {} instead of login page".format(get_web_page_from_classifier)
 
     def generate_xpath_map(self):
         guessable_elements = ['input', 'button']

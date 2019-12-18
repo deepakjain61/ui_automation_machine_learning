@@ -2,6 +2,8 @@ from selenium_wrapper import SeleniumActions
 from time import sleep
 from bs4 import BeautifulSoup
 from selenium_wrapper import Xpath_Util
+from helper import file_cleanup
+from query_model import classify_webpage
 
 required_labels = ["Create View"]
 
@@ -15,10 +17,14 @@ class Views(SeleniumActions):
         self.click_element(self.map["Create View"])
 
     def is_views_page(self):
-        path = "/tmp/views"
+        path = "model/views/"
+        file_cleanup("model/")
         self.take_page_snapshot(path)
-        ## add code here to query the model and verify if the page is dashboard page
-        pass
+        get_web_page_from_classifier = classify_webpage()
+        if get_web_page_from_classifier == "Views":
+            print "Page is successfully classified as Views page"
+        else:
+            print "Page is classified as {} instead of Views page".format(get_web_page_from_classifier)
 
     def generate_xpath_map(self):
         guessable_elements = ['input', 'button']
