@@ -21,7 +21,7 @@ num_train = len(train_idx)
 indices_train = list(range(num_train))
 np.random.shuffle(indices_train)
 split_tv = int(np.floor(valid_size * num_train))
-train_new_idx, valid_idx = indices_train[split_tv:],indices_train[:split_tv]
+train_new_idx, valid_idx = indices_train[split_tv:], indices_train[:split_tv]
 
 train_sampler = SubsetRandomSampler(train_new_idx)
 test_sampler = SubsetRandomSampler(test_idx)
@@ -70,7 +70,7 @@ import torch.optim as optim
 criterion = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr = 0.003, momentum= 0.9)
 #optimizer = torch.optim.Adam(model.parameters(), lr = 0.005)
-n_epochs = 20 # you may increase this number to train a final model
+n_epochs = 1000 # you may increase this number to train a final model
 valid_loss_min = np.Inf # track change in validation loss
 
 for epoch in range(1, n_epochs+1):
